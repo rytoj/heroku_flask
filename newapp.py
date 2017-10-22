@@ -24,6 +24,12 @@ def create_files(request_json):
             f.write(data.encode())
 
 
+def get_file_content(file_name):
+    with open(os.path.join("saved", file_name), "rb") as file:
+        file_read = file.read()
+    return file_read
+
+
 @app.route("/upload", methods=["POST", "GET"])
 def upload():
     if request.method == "POST":
@@ -40,6 +46,20 @@ def upload():
         return "404", 404
     else:
         return "---"
+
+
+@app.route("/get", methods=["GET"])
+def get():
+    if request.method == "GET":
+        file_name = request.args.get("file")
+        if file_name:
+            if os.path.isfile(file_name):
+                content = get_file_content(file_name)
+                return content.decode(), 200
+            else:
+                return "No file found", 200
+        else:
+            return "No content", 204
 
 
 if __name__ == "__main__":

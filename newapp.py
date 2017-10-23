@@ -8,11 +8,11 @@ SECRET_HEADER = "secret"
 PASSWORD = "c3VwCg=="  # TODO: add from local env
 
 
-@app.before_request
-def limit_remote_addr():
-    good_ip = ["88.119.143.44", "127.0.0.1"]
-    if request.remote_addr not in good_ip:
-        abort(403)  # Forbidden
+# @app.before_request
+# def limit_remote_addr():
+#     good_ip = ["127.0.0.1"]
+#     if request.remote_addr not in good_ip:
+#         abort(403)  # Forbidden
 
 
 @app.route("/")

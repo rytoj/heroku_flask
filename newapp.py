@@ -41,7 +41,7 @@ def upload():
                 create_files(request_json)
                 return "Posting", 200
         else:
-            return "Wrong pass"
+            return "Wrong pass", 401
     if request.method == "GET":
         return "404", 404
     else:
@@ -53,7 +53,7 @@ def get():
     if request.method == "GET":
         file_name = request.args.get("file")
         if file_name:
-            if os.path.isfile(file_name):
+            if os.path.join("saved", file_name):
                 content = get_file_content(file_name)
                 return content.decode(), 200
             else:
